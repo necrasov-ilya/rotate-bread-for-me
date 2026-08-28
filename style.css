@@ -1,0 +1,215 @@
+@font-face {
+  font-family: "Press Start 2P";
+  src: url("assets/PressStart2P-Regular.ttf") format("truetype");
+  font-display: swap;
+}
+
+:root {
+  color-scheme: light;
+  font-family: "Press Start 2P", monospace;
+  background: #87b9d8;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  width: 100%;
+  min-height: 100%;
+  margin: 0;
+}
+
+body {
+  min-height: 100svh;
+  overflow: hidden;
+  background-image:
+    linear-gradient(rgb(255 240 182 / 8%), rgb(79 54 17 / 8%)),
+    url("assets/background.png");
+  background-position: center;
+  background-size: cover;
+  image-rendering: pixelated;
+}
+
+body::after {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  content: "";
+  background: repeating-linear-gradient(
+    0deg,
+    rgb(42 25 8 / 4%) 0,
+    rgb(42 25 8 / 4%) 1px,
+    transparent 1px,
+    transparent 4px
+  );
+  mix-blend-mode: multiply;
+}
+
+.game {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  min-height: 100svh;
+  grid-template-rows: minmax(8rem, 0.8fr) minmax(16rem, 2fr) minmax(3rem, 0.35fr);
+  align-items: center;
+  justify-items: center;
+  padding: clamp(1.5rem, 5vw, 4rem);
+  perspective: 900px;
+}
+
+h1 {
+  max-width: 56rem;
+  margin: 0;
+  align-self: end;
+  color: #fff4c8;
+  font-size: clamp(1rem, 3vw, 2rem);
+  line-height: 1.55;
+  text-align: center;
+  text-wrap: balance;
+  text-shadow:
+    4px 0 #5a2d12,
+    -4px 0 #5a2d12,
+    0 4px #5a2d12,
+    0 -4px #5a2d12,
+    4px 4px #5a2d12;
+}
+
+.bread-button {
+  width: min(64vw, 32rem);
+  padding: 0;
+  border: 0;
+  margin: 0;
+  appearance: none;
+  background: transparent;
+  cursor: pointer;
+  filter: drop-shadow(0 1.5rem 0 rgb(76 45 12 / 24%));
+  outline: none;
+  transform: rotate(-3deg) translateY(0);
+  transform-style: preserve-3d;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.bread-button img {
+  display: block;
+  width: 100%;
+  user-select: none;
+  image-rendering: pixelated;
+}
+
+.bread-button:hover {
+  filter:
+    drop-shadow(0 1.5rem 0 rgb(76 45 12 / 24%))
+    brightness(1.06);
+  transform: rotate(-3deg) translateY(-0.4rem);
+}
+
+.bread-button:disabled {
+  cursor: wait;
+}
+
+.bread-button:focus-visible {
+  filter:
+    drop-shadow(0 1.5rem 0 rgb(76 45 12 / 24%))
+    drop-shadow(0 0 0.4rem #fff4c8);
+}
+
+.bread-button.flipping {
+  pointer-events: none;
+  animation: flip 720ms steps(10, end);
+  animation-direction: var(--flip-direction, normal);
+}
+
+.github-link,
+.language-button {
+  position: fixed;
+  z-index: 3;
+  display: grid;
+  width: 2.75rem;
+  height: 2.75rem;
+  place-items: center;
+  border: 3px solid #5a2d12;
+  background: #fff4c8;
+  box-shadow: 4px 4px 0 #5a2d12;
+  color: #5a2d12;
+  transition: translate 100ms steps(2, end), box-shadow 100ms steps(2, end);
+}
+
+.github-link {
+  right: clamp(1rem, 2vw, 1.5rem);
+  bottom: clamp(1rem, 2vw, 1.5rem);
+}
+
+.language-button {
+  top: clamp(1rem, 2vw, 1.5rem);
+  right: clamp(1rem, 2vw, 1.5rem);
+  padding: 0;
+  font: inherit;
+  font-size: 0.65rem;
+  cursor: pointer;
+}
+
+.github-link:hover,
+.github-link:focus-visible,
+.language-button:hover,
+.language-button:focus-visible {
+  box-shadow: 2px 2px 0 #5a2d12;
+  translate: 2px 2px;
+}
+
+.github-link svg {
+  width: 1.55rem;
+  fill: currentcolor;
+}
+
+@keyframes flip {
+  0% {
+    transform: rotate(-3deg) translateY(0) rotateY(0) scale(1);
+  }
+  25% {
+    transform: rotate(7deg) translateY(-4.5rem) rotateY(90deg) scale(0.9, 1.08);
+  }
+  50% {
+    transform: rotate(177deg) translateY(-7rem) rotateY(180deg) scale(0.82, 1.14);
+  }
+  75% {
+    transform: rotate(260deg) translateY(-3rem) rotateY(270deg) scale(0.92, 1.06);
+  }
+  100% {
+    transform: rotate(357deg) translateY(0) rotateY(360deg) scale(1);
+  }
+}
+
+@media (max-width: 600px) {
+  .game {
+    grid-template-rows: minmax(9rem, 0.9fr) minmax(15rem, 1.7fr) minmax(3rem, 0.25fr);
+    padding-inline: 1rem;
+  }
+
+  .bread-button {
+    width: min(92vw, 27rem);
+  }
+
+  h1 {
+    font-size: clamp(0.9rem, 5vw, 1.25rem);
+    text-shadow:
+      3px 0 #5a2d12,
+      -3px 0 #5a2d12,
+      0 3px #5a2d12,
+      0 -3px #5a2d12,
+      3px 3px #5a2d12;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bread-button.flipping {
+    animation: tiny-flip 180ms steps(2, end);
+  }
+
+  @keyframes tiny-flip {
+    50% {
+      transform: scaleX(-1);
+    }
+  }
+}
